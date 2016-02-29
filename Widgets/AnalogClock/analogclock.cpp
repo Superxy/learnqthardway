@@ -55,8 +55,9 @@ void AnalogClock::paintEvent(QPaintEvent *event)
         QPoint(0, -70)
     };
 
-    QColor hourColor(127, 0, 127);
-    QColor minuteColor(0, 129, 127, 191);
+    QColor hourColor(127, 0, 127);   // rgb
+    QColor minuteColor(0,129, 127, 191);   // cmyk
+//The minute hand's color has an alpha component of 191, meaning that it's 75% opaque.
 
     int side = qMin(width(), height());
     QTime time = QTime::currentTime();
@@ -73,10 +74,12 @@ void AnalogClock::paintEvent(QPaintEvent *event)
     /*
     Scales the coordinate system by (sx, sy).
     */
-    painter.scale(side / 200.0, side / 200.0);
+    painter.scale(side / 200.0, side / 200.0);  // 1:1  (side = 200)
 
-    painter.setPen(Qt::NoPen);
+    painter.setPen(Qt::NoPen);//We set the pen to be Qt::NoPen because we don't want any outline
     painter.setBrush(hourColor);
+    //we use a solid brush with the color appropriate for displaying hours.
+    //Brushes are used when filling in polygons and other geometric shapes.
 
     /*
     Saves the current painter state (pushes the state onto a stack). A save() must be followed by
@@ -96,12 +99,24 @@ void AnalogClock::paintEvent(QPaintEvent *event)
     Restores the current painter state (pops a saved state off the stack).
     */
     painter.restore();
+    /*
+    We save and restore the transformation matrix before and after the rotation
+    because we want to place the minute hand without having to take into account
+    any previous rotations.
+    */
 
     painter.setPen(hourColor);
 
     for (int i = 0; i < 12; ++i) {
         painter.drawLine(88, 0, 96, 0);
+        /*
+        This is an overloaded function.
+        Draws a line from (x1, y1) to (x2, y2).
+        */
         painter.rotate(30.0);
+        /*
+        Rotates the coordinate system clockwise. The given angle parameter uses degree unit.
+        */
     }
 
     painter.setPen(Qt::NoPen);
@@ -119,4 +134,5 @@ void AnalogClock::paintEvent(QPaintEvent *event)
             painter.drawLine(92, 0, 96, 0);
         painter.rotate(6.0);
     }
+
 }
