@@ -7,7 +7,7 @@ findDialog::findDialog(QWidget *parent) : QDialog(parent)
     // &w --> 快捷键 Alt+w
     label = new QLabel(tr("Find &what:"));
     lineEdit = new QLineEdit;
-    //QLabel::setBuddy() 当按快捷键时候，光标移动到它的Buddy上。
+    //QLabel::setBuddy()  当按快捷键时候，光标移动到它的Buddy上。
     label->setBuddy(lineEdit);
 
     caseCheckBox = new QCheckBox(tr("Match &case"));
