@@ -19,7 +19,7 @@ extendDialog::extendDialog(QWidget *parent) :
     ui->secondaryGroupBox->hide();
     ui->tertiaryGroupBox->hide();
     /*
-    隐藏了  secondaryGroupBox 和 tertiaryGroupBox之后
+    隐藏了secondaryGroupBox 和 tertiaryGroupBox之后
     把窗体布局的属性SizeConstraint 设置成QLayout::SetFixedSize
     这样布局管理器就会重新来定义窗体的大小
     */
